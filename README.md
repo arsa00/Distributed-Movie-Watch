@@ -1,4 +1,4 @@
-# Distributed Movie Watch (--- In progress ---)
+# Distributed Movie Watch (--- IN PROGRESS ---)
 Distributed system for watching and uploading videos (movies mostly). Software operates in a system consisted of multiple computers that are connected in LAN or WAN.
 
 ## System architecture
