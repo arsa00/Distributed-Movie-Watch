@@ -16,3 +16,9 @@ Standalone watching is completely similiar to any online movie/video watching.
 
 But, room watching is much more interesting. It aims to provide a feeling of cinema watching. All users in the room are watching movie live-stream, but from the moment where user who had created the room has reached (all users are watching the same scene at the moment).
 Also, only room admin (user who has created the room) has controls over movie stream. For example: when room admin presses pause, it pauses for everyone in the room.
+
+
+## Credits
+Icons used within this project have been downloaded from Flaticon.com
+
+Preloaders used within this project have been downloaded from loading.io
