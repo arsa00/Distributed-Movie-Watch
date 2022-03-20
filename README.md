@@ -19,6 +19,6 @@ Also, only room admin (user who has created the room) has controls over movie st
 
 
 ## Credits
-Icons used within this project have been downloaded from [Flaticon.com]
+Icons used within this project have been downloaded from [Flaticon.com](https://www.flaticon.com/)
 
-Preloaders used within this project have been downloaded from [loading.io]
+Preloaders used within this project have been downloaded from [loading.io](https://loading.io/)
