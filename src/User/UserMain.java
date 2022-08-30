@@ -33,8 +33,8 @@ public class UserMain
 			e.printStackTrace();
 		}
 		connectionService = new ConnectionService();
-		logInFrame = new LogInFrame();
-		//mainFrame = new WelcomeFrame("Proba");
+		//logInFrame = new LogInFrame();
+		mainFrame = new WelcomeFrame("Proba");
 	}
 	
 	static void closeUserProgram()
