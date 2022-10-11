@@ -81,7 +81,7 @@ public class Player extends JFrame
 				setTimeLine(String.format("%02d:%02d:%02d", hours, min, sec));
 			}
 
-			close();
+			//close();   // ovo svakako mora da se izbaci 
 		}
 		
 		public void finish()
@@ -395,7 +395,7 @@ public class Player extends JFrame
 	private void changeVideoTime(int milis)
 	{
 		if(!videoLoaded) return;
-		if(milis > mediaPlayer.status().length()) milis = (int)mediaPlayer.status().length();
+		if(milis > mediaPlayer.status().length()) milis = (int)mediaPlayer.status().length()/* - 10*/;
 		mediaPlayer.controls().setTime(milis);
 		timeLineThread.interrupt();
 	}
@@ -409,7 +409,8 @@ public class Player extends JFrame
 		if(mediaPlayer.status().time() == mediaPlayer.status().length())
 		{
 			mediaPlayer.controls().setTime(0);
-			timeLineThread.finish();
+			//timeLineThread.finish();
+			stopVideo(); // TODO: moze ovako, ali ne sme da se pokrece timeLineThread svaki put u load-u videa, treba popraviti i sam timeLineThread...
 		}
 	}
 	
@@ -437,12 +438,19 @@ public class Player extends JFrame
 	{
 		if(isClosed) return;
 		
-		timeLineThread.finish();
-		stopVideo();
-		player.release();
-		this.dispose();
-		isClosed = true;
-		UserMain.mainFrame.setEnabled(true);
+		try
+		{
+			timeLineThread.finish();
+			stopVideo();
+			player.release();
+			this.dispose();
+			isClosed = true;
+			UserMain.mainFrame.setEnabled(true);
+		}
+		catch(Exception e)
+		{
+			System.out.println("AAA" + e.getMessage());
+		}
 	}
 	
 	public static void main(String[] args)

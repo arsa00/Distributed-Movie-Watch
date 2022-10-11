@@ -293,6 +293,7 @@ public class WelcomeFrame extends JFrame
 		moviesAndRoomsPanel.close();
 		// TODO: add other close methods to elements (where needed)
 		this.dispose();
+		//UserMain.closeUserProgram();
 	}
 	
 	public static void main(String[] args)
