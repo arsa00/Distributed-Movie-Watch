@@ -198,13 +198,13 @@ public class ConnectionService
 		{
 			e.printStackTrace();
 		}
-		multicastListener = new userMulticastListener();
+		/*multicastListener = new userMulticastListener();
 		udpListener = new userUDPListener();
 		multicastListener.start();
-		udpListener.start();
+		udpListener.start();*/
 		new File(ConnectionConstants.configDir).mkdir();
 		new File(ConnectionConstants.subserversConfigDir).mkdir();
-		loadDataFromConfigFile();
+		//loadDataFromConfigFile();
 	}
 	
 	// working with configuration file
@@ -268,7 +268,7 @@ public class ConnectionService
 		// create UDP socket
 		try
 		{
-			socketUDP = new DatagramSocket();
+			socketUDP = new DatagramSocket(ConnectionConstants.userUDPort);
 		} catch (SocketException e1)
 		{
 			System.out.println("UDP socket not created");
@@ -279,7 +279,7 @@ public class ConnectionService
 		// send automatic server discover message to multicast address
 		byte buff[];
 		buff = ConnectionConstants.mainServerDiscoverReqMsg.getBytes(StandardCharsets.UTF_8);
-		DatagramPacket packetToSend = new DatagramPacket(buff, buff.length, multicastMainServer, ConnectionConstants.userMulticastPort);
+		DatagramPacket packetToSend = new DatagramPacket(buff, buff.length, multicastMainServer, ConnectionConstants.mainServerMulticastPort);
 		try
 		{
 			socketUDP.send(packetToSend);
@@ -309,7 +309,7 @@ public class ConnectionService
 		if(socketUDP != null) socketUDP.close();
 		
 		// check response in received packet
-		if(!ConnectionConstants.mainServerDiscoverResMsg.equals(new String(receivedPacket.getData(), StandardCharsets.UTF_8)))
+		if(!ConnectionConstants.mainServerDiscoverResMsg.equals(new String(receivedPacket.getData(), StandardCharsets.UTF_8).trim()))
 		{
 			System.out.println("Error while getting resposne message from main server. MSG: " + 
 													new String(receivedPacket.getData(), StandardCharsets.UTF_8));
@@ -317,6 +317,7 @@ public class ConnectionService
 		}
 		
 		mainServerAddr = receivedPacket.getAddress();  // get main server address from received packet
+		System.out.println("\n\n*** FOUND MAIN SERVER IP: " + mainServerAddr.getHostAddress() + " ***\n"); // TODO: izbrisati
 		saveDataToConfigFile();
 	}
 	
@@ -790,6 +791,18 @@ public class ConnectionService
 		ConnectionService conn = new ConnectionService();
 		try
 		{
+			conn.discoverMainServer();
+		} catch (ErrorMulitcastGroup e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (ErrorServerNotFound e)
+		{
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		/*try
+		{
 			conn.changeActiveSubserver(InetAddress.getByName("192.168.0.3"));
 			conn.setUserName("proba");
 			conn.changeSubserver(InetAddress.getByName("192.168.0.2"));
@@ -804,7 +817,7 @@ public class ConnectionService
 		{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 }

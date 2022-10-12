@@ -34,4 +34,7 @@ public class ConnectionConstants
 	public static final int subserverUDPort = 5004;
 	public static final int subserverTCPort = 5005;
 	public static final int subserverMulticastPort = 5006;
+	public static final int mainServerUDPort = 5007;
+	public static final int mainServerTCPort = 5008;
+	public static final int mainServerMulticastPort = 5009;
 }
