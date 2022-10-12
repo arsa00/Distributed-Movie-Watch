@@ -10,7 +10,10 @@ import java.nio.charset.StandardCharsets;
 import Common.ConnectionConstants;
 
 public class MainServerNetworkListener
-{
+{ // osluskuje sve vezano na mrezne interfejse i delegira poslove ostalim klasama servera. Radi dokle je server podignut.
+	
+	private static MainServerNetworkListener networkListener = null;
+	
 	private class MulticastListener extends Thread
 	{  // prima i obradjuje zahteve primljene na multicast-u centralnog servera
 		private MulticastSocket connSocketUDP = null;
@@ -56,6 +59,8 @@ public class MainServerNetworkListener
 					conn.sendMainServerDiscoverResponse(recvPacket.getAddress());
 				}
 				// TODO: add more operations, like main server changed...
+				
+				//TODO: dodati uslov prekida ?
 			}
 		}
 		
@@ -76,15 +81,21 @@ public class MainServerNetworkListener
 		}
 	}
 	
-	public MainServerNetworkListener()
+	private MainServerNetworkListener()
 	{
 		MulticastListener multicastListener = new MulticastListener();
 		multicastListener.start();
 	}
 	
+	public static void start()
+	{
+		networkListener = new MainServerNetworkListener();
+	}
+	
+	
 	public static void main(String[] args)
 	{
-		MainServerNetworkListener networkListener = new MainServerNetworkListener();
+		MainServerNetworkListener.start();
 		for(int i = 0; i < 1000000000; i++)
 			for(int j = 0; j < 1000000000; j++)
 				for(int k = 0; k < 1000000000; k++);

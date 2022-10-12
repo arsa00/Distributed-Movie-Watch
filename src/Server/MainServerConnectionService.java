@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 import Common.ConnectionConstants;
 
 public class MainServerConnectionService
-{
+{ // da li mora da bude synchronized???
 	
 	private static MainServerConnectionService conn = null;
 	
@@ -20,7 +20,7 @@ public class MainServerConnectionService
 	}
 	
 	
-	public static MainServerConnectionService getInstance()
+	public static synchronized MainServerConnectionService getInstance()
 	{
 		if(conn == null)
 			conn = new MainServerConnectionService();
@@ -28,7 +28,7 @@ public class MainServerConnectionService
 		return conn;
 	}
 	
-	public void sendMainServerDiscoverResponse(InetAddress hostIP)
+	public synchronized void sendMainServerDiscoverResponse(InetAddress hostIP)
 	{
 		DatagramSocket socketUDP = null;
 		try
